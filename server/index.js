@@ -10,6 +10,9 @@ import path from "path";
 import { fileURLToPath } from "url";
 //**DATABASE IMPORTS */
 import { connectDB } from "./controllers/connectDB.js";
+//**LOGGER IMPORTS */
+import { reqResLog } from "./middleware/requestResponseHandler.js";
+import { errorLog } from "./middleware/errorHandler.js";
 
 //** ROUTES IMPORTS */
 import authRoutes from "./routes/auth.js";
@@ -32,6 +35,9 @@ app.use(morgan("common"));
 
 //** FILE */
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
+/** CUSTOM LOGGER */
+app.use(reqResLog);
+app.use(errorLog);
 
 /** ROUTES */
 app.use("/auth",authRoutes);
