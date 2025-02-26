@@ -2,11 +2,13 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { sendMail } from "../services/emailDetail.js";
 
 /** REGISTER USER */
 export const registerUser = async (req, res) => {
   try {
     const { userName, email, password } = req.body;
+    console.log(userName)
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password, salt);
     const newUser = new User({
@@ -85,7 +87,7 @@ export const sendLink = async (req, res) => {
       const resetPasswordLink = `http://localhost:3000/reset-password/${user._id}/${token}`;
       const mailData = {
         toEmail: email,
-        title: "Reset Password Link For Sekai!",
+        title: "Reset Password Link For Xindou!",
         message: `This is the link to reset password for your Xindou account.< ${resetPasswordLink} >This link will expire in 10minutes. Please Do not share this link with anyone!`,
       };
       const response = await sendMail(mailData);
@@ -119,6 +121,25 @@ export const changePassword = async (req, res) => {
     } else {
       res.status(403).json({ error: "User is not authorized!!" });
     }
+  } catch (error) {
+    res.status(400).json({ error: error });
+  }
+};
+//** NICKNAME AND BIO */
+export const changeInfo = async (req, res) => {
+  const { userName } = req.params;
+  const { nickName, bio } = req.body;
+  try {
+    const user = await User.findOne({ userName: userName });
+    const newInfo = await User.findByIdAndUpdate(
+      { _id: user.id },
+      { nickName: nickName, bio: bio },
+      { new: true }
+    );
+    const updatedUser = await newInfo.save();
+    updatedUser.password = undefined;
+    updatedUser.resetPasswordToken = undefined;
+    res.status(201).json({ user: updatedUser });
   } catch (error) {
     res.status(400).json({ error: error });
   }

@@ -1,8 +1,12 @@
 //** IMPORTS */
 import express from "express";
 import {
+  changeInfo,
+  changePassword,
   loginUser,
+  refreshUser,
   registerUser,
+  sendLink,
 } from "../controllers/auth.js";
 
 //** CONFIG */
@@ -17,5 +21,7 @@ router.post("/refreshuser", refreshUser);
 //** EMAIL AND PASSWORD */
 router.post("/resetpasswordlink",sendLink);
 router.post("/changepassword/:id/:token",changePassword);
+//** INFO */
+router.post("/changeinfo/:userName", changeInfo);
 
 export default router;
