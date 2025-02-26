@@ -17,6 +17,7 @@ import { errorLog } from "./middleware/errorHandler.js";
 //** ROUTES IMPORTS */
 import authRoutes from "./routes/auth.js";
 import existRoutes from "./routes/exist.js";
+import userRoutes from "./routes/user.js";
 
 //** FILES CONFIG */
 const __filename = fileURLToPath(import.meta.url);
@@ -43,6 +44,7 @@ app.use(errorLog);
 /** ROUTES */
 app.use("/auth",authRoutes);
 app.use("/find", existRoutes);
+app.use("/user", userRoutes);
 
 const PORT = process.env.PORT;
 
