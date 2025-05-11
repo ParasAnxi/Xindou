@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@google/generative-ai": "^0.22.0",
     "@mui/icons-material": "^6.4.5",
     "@mui/material": "^6.4.5",
     "@mui/system": "^6.4.3",
@@ -17,6 +18,7 @@
     "formik": "^2.4.6",
     "jwt-decode": "^4.0.0",
     "react": "^19.0.0",
+    "react-chat-engine-advanced": "^0.1.28",
     "react-dom": "^19.0.0",
     "react-dropzone": "^14.3.6",
     "react-redux": "^9.2.0",
@@ -51,5 +53,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.7"
   }
 }
